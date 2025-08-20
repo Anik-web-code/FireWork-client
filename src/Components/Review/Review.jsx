@@ -79,10 +79,10 @@ const reviews = [
 const Review = () => {
   return (
     <div className="w-[96%] mx-auto p-4 md:w-[90%] lg:w-[80%] mt-20">
-      <h1 className="text-[40px] font-medium text-center mb-6">
+      <h1 className="text-[40px] font-medium text-center mb-6 dark: text-black">
         Real Reviews From Our Clients
       </h1>
-      <div className="grid grid-cols-1 justify-center md:grid-cols-2 lg:grid-cols-3 place-items-center">
+      <div className="grid grid-cols-1 justify-center md:grid-cols-2 lg:grid-cols-3 place-items-center dark:text-black">
         {reviews.map((review) => {
           return <Reviews key={review.id} review={review}></Reviews>;
         })}

@@ -1,11 +1,11 @@
-import React, { use } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router";
 import { updateProfile } from "firebase/auth";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../Context/AuthContext";
 
 const Register = () => {
-  const { createUser } = use(AuthContext);
+  const { createUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
@@ -19,97 +19,85 @@ const Register = () => {
     const hasLowercase = /[a-z]/.test(password);
     const isLongEnough = password.length >= 6;
 
-    if (!hasUppercase) {
-      alert("Password must contain at least one uppercase letter.");
-      return;
-    }
-
-    if (!hasLowercase) {
-      alert("Password must contain at least one lowercase letter.");
-      return;
-    }
-
-    if (!isLongEnough) {
-      alert("Password must be at least 6 characters long.");
-      return;
-    }
+    if (!hasUppercase)
+      return alert("Password must contain at least one uppercase letter.");
+    if (!hasLowercase)
+      return alert("Password must contain at least one lowercase letter.");
+    if (!isLongEnough)
+      return alert("Password must be at least 6 characters long.");
 
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-
-        return updateProfile(user, {
-          displayName: name,
-          photoURL: photoURL,
-        });
+        return updateProfile(user, { displayName: name, photoURL });
       })
-      .then(() => {
-        navigate("/login");
-      })
-      .catch((err) => {
-        console.error(err);
-        alert("Registration failed. Please try again.");
-      });
+      .then(() => navigate("/login"))
+      .catch(() => alert("Registration failed. Please try again."));
   };
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gradient-to-r from-[#FF6B6B] to-[#FFD93D] dark:from-gray-900 dark:to-gray-700 p-6">
       <Helmet>
-              <title>Register</title>
-            </Helmet>
-      <div className="mx-auto w-[80%]">
-        <h1 className="text-5xl font-bold text-center mb-5">Register Now</h1>
-      </div>
-      <div className="card bg-base-100 w-full mx-auto max-w-sm shrink-0 shadow-2xl">
-        <div className="card-body">
-          <form onSubmit={handleRegister} className="fieldset">
-            <label className="label">Name</label>
-            <input
-              name="name"
-              type="text"
-              className="input"
-              placeholder="Name"
-              required
-            />
-            <label className="label">Email</label>
-            <input
-              name="email"
-              type="email"
-              className="input"
-              placeholder="Email"
-              required
-            />
-            <label className="label">Password</label>
-            <input
-              name="password"
-              type="password"
-              className="input"
-              placeholder="Password"
-              required
-            />
-            <label className="label">Photo URL</label>
-            <input
-              name="photoURL"
-              type="text"
-              className="input"
-              placeholder="Link to your photo"
-              required
-            />
-            <button className="btn btn-neutral mt-4">Register</button>
-          </form>
-          <p>
-            Already Have an Account?{" "}
-            <Link className="text-blue-400 underline" to="/login">
-              Login
-            </Link>
-          </p>
+        <title>Register</title>
+      </Helmet>
+
+      {/* Register Card */}
+      <div className="w-full md:w-1/2 max-w-md bg-white dark:bg-gray-800 backdrop-blur-md bg-opacity-80 dark:bg-opacity-80 shadow-2xl rounded-3xl p-8 md:p-12 flex flex-col items-center animate-fadeIn">
+        <h1 className="text-4xl font-extrabold mb-4 text-gray-900 dark:text-gray-100 text-center">
+          Create Account
+        </h1>
+        <p className="text-gray-700 dark:text-gray-300 mb-8 text-center">
+          Join and start exploring amazing tasks & freelance opportunities
+        </p>
+
+        <form onSubmit={handleRegister} className="w-full space-y-5">
+          <input
+            name="name"
+            type="text"
+            placeholder="Full Name"
+            className="w-full px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 focus:ring-2 focus:ring-[#FF4500] focus:outline-none transition-all"
+            required
+          />
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            className="w-full px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 focus:ring-2 focus:ring-[#FF4500] focus:outline-none transition-all"
+            required
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            className="w-full px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 focus:ring-2 focus:ring-[#FF4500] focus:outline-none transition-all"
+            required
+          />
+          <input
+            name="photoURL"
+            type="text"
+            placeholder="Profile Photo URL"
+            className="w-full px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 focus:ring-2 focus:ring-[#FF4500] focus:outline-none transition-all"
+            required
+          />
+
+          <button className="w-full py-3 bg-[#FF4500] dark:bg-[#FF6B3D] text-white font-bold rounded-xl hover:scale-105 transform transition-all shadow-lg">
+            Register
+          </button>
+        </form>
+
+        <div className="my-5 w-full flex items-center justify-center gap-3">
+          <span className="h-px w-10 bg-gray-300 dark:bg-gray-600"></span>
+          <span className="text-gray-500 dark:text-gray-400 font-medium">
+            or
+          </span>
+          <span className="h-px w-10 bg-gray-300 dark:bg-gray-600"></span>
         </div>
-        <button className="btn bg-white text-black border-[#e5e5e5]">
-          
+
+        <button className="w-full flex items-center justify-center gap-3 py-3 bg-white dark:bg-gray-700 text-black dark:text-gray-100 rounded-xl shadow-lg hover:scale-105 transform transition-all">
           <svg
             aria-label="Google logo"
-            width="16"
-            height="16"
+            width="20"
+            height="20"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
           >
@@ -135,6 +123,13 @@ const Register = () => {
           </svg>
           Continue with Google
         </button>
+
+        <p className="mt-6 text-gray-700 dark:text-gray-300">
+          Already have an account?{" "}
+          <Link className="text-blue-500 hover:underline" to="/login">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );

@@ -42,7 +42,7 @@ const Counter = () => {
             <div className="text-4xl md:text-5xl font-bold text-[#FF4500]">
               {inView && <CountUp end={card.count} duration={card.duration} />}+
             </div>
-            <p className="font-semibold text-xl md:text-2xl mt-3">
+            <p className="font-semibold text-xl md:text-2xl mt-3 dark:text-black">
               {card.label}
             </p>
           </div>

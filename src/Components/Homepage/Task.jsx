@@ -4,7 +4,7 @@ import { NavLink } from "react-router";
 const Task = ({ task }) => {
   return (
     <div className="mb-6">
-      <div className="card bg-base-100 w-96 shadow-sm">
+      <div className="card bg-base-100 w-96 shadow-sm dark:text-[#FFFFFF]">
         <figure>
           <img
             src="https://i.postimg.cc/ht1ZH7Z9/97840a36-9567-43d4-aa7d-085b15e4a4.jpg"

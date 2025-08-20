@@ -51,7 +51,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="bg-white w-full shadow-sm mb-10">
+    <nav className="bg-white w-full shadow-sm mb-0">
       <div className="max-w-[90%] mx-auto p-4 flex justify-between items-center">
         <div className="flex gap-2 items-center">
           <img
